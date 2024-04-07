@@ -10,7 +10,7 @@ from solders.pubkey import Pubkey
 # Properties
 solana_client = Client("https://api.mainnet-beta.solana.com")
 #Max 5 addresses else you will get error.
-wallet_addresses = []
+wallet_addresses = ["5dYS9BcDAtpD7Lt9EWcrgdWtL41JAbmTKufHUZ5Eb2Z4"]
 seen_signatures = set()
 
 def getTimestamp():
@@ -81,15 +81,15 @@ async def run(wallet_address: str):
                             post_amount = ui.ui_token_amount.amount
                         if ui.owner == Pubkey.from_string(wallet_address) and ui.mint != Pubkey.from_string("So11111111111111111111111111111111111111112"):
                             token_address = ui.mint
-										count+=1
+                    count+=1
                     if post_amount > pre_amount:
                         transferSold(count, wallet_address, token_address, hash)
-												## TODO: Trigger sold token from my wallet
+						## TODO: Trigger sold token from my wallet
                     else:
                         transferBought(count, wallet_address, token_address, hash)
-												## TODO: Trigger bought token from my wallet
+						## TODO: Trigger bought token from my wallet
                 except Exception as e:
-                    print('Error Occured',e , wallet_address, hash)
+                    print('Error Occured', e ,wallet_address, hash)
                     continue
 
 tasks = [run(addr) for addr in wallet_addresses]
